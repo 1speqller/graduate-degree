@@ -1,0 +1,52 @@
+﻿<Page x:Class="EMSystem.Windows.Pages.OrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EMSystem.Windows.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1000"
+      Title="OrderPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#06799F" Grid.ColumnSpan="2">
+            <TextBlock Foreground="White" Text="Отчёт" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#06799F">
+            <Button x:Name="btnPrint" Content="Печать" Background="White" Margin="250,0,0,0" Click="btnPrint_Click"/>
+            <Button x:Name="btnAll" Content="Все классы" Click="btnAll_Click" Background="White" Margin="00,0,250,0"/>
+        </Grid>
+        <FlowDocumentScrollViewer  Grid.Row="2" Name="scrollService" Visibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <FlowDocument Name="flowDocumentService" ColumnWidth="700" MinPageWidth="900"  MinPageHeight="1000" FontFamily="Roboto">
+                <BlockUIContainer>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="txtTitle" Text="Свод на 1.04.2022" FontSize="26" Margin="5"></TextBlock>
+                        <DataGrid Name="DGridBeneficiaryInfo" AutoGenerateColumns="False" IsReadOnly="True" RowHeaderWidth="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Класс" Binding="{Binding ClassName}" Width="55*"/>
+                                <DataGridTextColumn Header="Многодетные" Binding="{Binding ManyChildren}" Width="60*" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}"/>
+                                <DataGridTextColumn Header="Малообеспеченные" Binding="{Binding LowIncome}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="90*"/>
+                                <DataGridTextColumn Header="Инвалиды" Binding="{Binding Invalid}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="50*"/>
+                                <DataGridTextColumn Header="Дети-сироты" Binding="{Binding Orphan}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="80*"/>
+                                <DataGridTextColumn Header="ОВЗ" Binding="{Binding OVZ}" Width="40*"/>
+                                <DataGridTextColumn Header="ОВЗ на дому" Binding="{Binding InHomeOVZ}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="70*"/>
+                                <DataGridTextColumn Header="Инвалиды на дому" Binding="{Binding InHomeInvalid}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="90*"/>
+                                <DataGridTextColumn Header="Без статуса на дому" Binding="{Binding InHomeNoStatus}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}"  Width="90*"/>
+                                <DataGridTextColumn Header="Питающиеся за счёт родителей" Binding="{Binding InFeedingParents}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}"  Width="140*"/>
+                                <DataGridTextColumn Header="Без категории" Binding="{Binding NoType}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="80*"/>
+                                <DataGridTextColumn Header="Все дети" Binding="{Binding AllStudents}" HeaderStyle="{StaticResource WrappedColumnHeaderStyle}" Width="60*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </BlockUIContainer>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+    </Grid>
+</Page>

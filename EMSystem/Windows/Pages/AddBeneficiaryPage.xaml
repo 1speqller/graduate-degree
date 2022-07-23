@@ -1,0 +1,44 @@
+﻿<Page x:Class="EMSystem.Windows.Pages.AddBeneficiaryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EMSystem.Windows.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddBeneficiaryPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Background="#06799F" Grid.ColumnSpan="2">
+            <TextBlock Foreground="White" Text="Льготники" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Имя:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Фамилия:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Отчество:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Наименование сертификата:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Дата окончания действия:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Тип льготы:" FontSize="20" Margin="0,0,0,10"/>
+            <TextBlock Text="Класс:" FontSize="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox x:Name="txtBoxFirstName" Margin="0,0,0,10"/>
+            <TextBox x:Name="txtBoxLastName" Margin="0,0,0,10"/>
+            <TextBox x:Name="txtBoxPatronomyc" Margin="0,0,0,10"/>
+            <TextBox x:Name="txtBoxCertificateName" Margin="0,0,0,10"/>
+            <DatePicker x:Name="datepickCertificate" Margin="0,0,0,10"/>
+            <ComboBox x:Name="cmbBoxBeneficiaryType" Margin="0,0,0,10"  DisplayMemberPath="Name" Width="200" SelectionChanged="cmbBoxBeneficiaryType_SelectionChanged"/>
+            <ComboBox x:Name="cmbBoxClass" DisplayMemberPath="FullClasses" SelectionChanged="cmbBoxClass_SelectionChanged"/>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="2" x:Name="btnAddBeneficiary" Content="Добавить" Click="btnAddBeneficiary_Click"/>
+    </Grid>
+</Page>

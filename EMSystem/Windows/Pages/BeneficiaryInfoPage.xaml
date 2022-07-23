@@ -1,0 +1,45 @@
+﻿<Page x:Class="EMSystem.Windows.Pages.BeneficiaryInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EMSystem.Windows.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BeneficiaryInfoPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#06799F	">
+            <TextBlock Foreground="White" Text="Льготники" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+            
+        </Grid>
+        <Grid Grid.Row="1" Background="#06799F	">
+            <ComboBox x:Name="cmbBoxClass" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,10,0" DisplayMemberPath="FullClasses" SelectionChanged="cmbBoxClass_SelectionChanged"/>
+            <ComboBox Width="140" x:Name="cmbBoxSchool" HorizontalAlignment="Left" Margin="10,0,0,0" DisplayMemberPath="Description" SelectionChanged="cmbBoxSchool_SelectionChanged"/>
+            <Button x:Name="btnAddBeneficiary" Margin="0,0,180,0" Background="White" Content="Добавить" Click="btnAddBeneficiary_Click"/>
+            <Button x:Name="btnDeleteBeneficiary" Margin="130,0,0,0" Background="White" Content="Удалить" Click="btnDeleteBeneficiary_Click"/>
+        </Grid>
+            <DataGrid Grid.Row="2" Name="DGridBeneficiaryInfo" AutoGenerateColumns="False" IsReadOnly="True" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="80*"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="80*"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="80*"/>
+                <DataGridTextColumn Header="Сертификат" Binding="{Binding Certificate.Name}" Width="80*"/>
+                <DataGridTextColumn Header="Дата окончания сертификата" Binding="{Binding Certificate.Date}" Width="80*"/>
+                <DataGridTextColumn Header="Тип" Binding="{Binding BeneficiaryType.Name}" Width="80*"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Редактировать" Name="btnEdit" Click="btnEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

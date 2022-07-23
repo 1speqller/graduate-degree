@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище EMDatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CertificateId" Type="int" Nullable="false" />
+          <Property Name="ClassesId" Type="int" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BeneficiaryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Certificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Descriprion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="SchoolId" Type="int" Nullable="false" />
+          <Property Name="Character" Type="nvarchar" MaxLength="1" />
+          <Property Name="SchoolShift" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "EMDatabase.dbo.CountStudents" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CountStudents">
+          <Key>
+            <PropertyRef Name="ClassId" />
+            <PropertyRef Name="ManyChildren" />
+            <PropertyRef Name="LowIncome" />
+            <PropertyRef Name="Invalid" />
+            <PropertyRef Name="Orphan" />
+            <PropertyRef Name="OVZ" />
+            <PropertyRef Name="InHomeOVZ" />
+            <PropertyRef Name="InHomeInvalid" />
+            <PropertyRef Name="InHomeNoStatus" />
+            <PropertyRef Name="InFeedingParents" />
+            <PropertyRef Name="NoType" />
+            <PropertyRef Name="AllStudents" />
+          </Key>
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="ManyChildren" Type="int" Nullable="false" />
+          <Property Name="LowIncome" Type="int" Nullable="false" />
+          <Property Name="Invalid" Type="int" Nullable="false" />
+          <Property Name="Orphan" Type="int" Nullable="false" />
+          <Property Name="OVZ" Type="int" Nullable="false" />
+          <Property Name="InHomeOVZ" Type="int" Nullable="false" />
+          <Property Name="InHomeInvalid" Type="int" Nullable="false" />
+          <Property Name="InHomeNoStatus" Type="int" Nullable="false" />
+          <Property Name="InFeedingParents" Type="int" Nullable="false" />
+          <Property Name="NoType" Type="int" Nullable="false" />
+          <Property Name="AllStudents" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Successful" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="SchoolId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Beneficiary_BeneficiaryType1">
+          <End Role="BeneficiaryType" Type="Self.BeneficiaryType" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeneficiaryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Certificate">
+          <End Role="Certificate" Type="Self.Certificate" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Certificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="CertificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Classes">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="ClassesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_School">
+          <End Role="School" Type="Self.School" Multiplicity="1" />
+          <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CountStudents_Classes">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="CountStudents" Type="Self.CountStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CountStudents">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginHistory_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LoginHistory" Type="Self.LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_School">
+          <End Role="School" Type="Self.School" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище EMDatabaseModelContainer">
+          <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BeneficiaryType" EntityType="Self.BeneficiaryType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Certificate" EntityType="Self.Certificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountStudents" EntityType="Self.CountStudents" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CountStudents].[ClassId] AS [ClassId], 
+    [CountStudents].[ManyChildren] AS [ManyChildren], 
+    [CountStudents].[LowIncome] AS [LowIncome], 
+    [CountStudents].[Invalid] AS [Invalid], 
+    [CountStudents].[Orphan] AS [Orphan], 
+    [CountStudents].[OVZ] AS [OVZ], 
+    [CountStudents].[InHomeOVZ] AS [InHomeOVZ], 
+    [CountStudents].[InHomeInvalid] AS [InHomeInvalid], 
+    [CountStudents].[InHomeNoStatus] AS [InHomeNoStatus], 
+    [CountStudents].[InFeedingParents] AS [InFeedingParents], 
+    [CountStudents].[NoType] AS [NoType], 
+    [CountStudents].[AllStudents] AS [AllStudents]
+    FROM [dbo].[CountStudents] AS [CountStudents]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Beneficiary_BeneficiaryType1" Association="Self.FK_Beneficiary_BeneficiaryType1">
+            <End Role="BeneficiaryType" EntitySet="BeneficiaryType" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Certificate" Association="Self.FK_Beneficiary_Certificate">
+            <End Role="Certificate" EntitySet="Certificate" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Classes" Association="Self.FK_Beneficiary_Classes">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_School" Association="Self.FK_Class_School">
+            <End Role="School" EntitySet="School" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CountStudents_Classes" Association="Self.FK_CountStudents_Classes">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="CountStudents" EntitySet="CountStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginHistory_User" Association="Self.FK_LoginHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoginHistory" EntitySet="LoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_School" Association="Self.FK_User_School">
+            <End Role="School" EntitySet="School" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EMDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CertificateId" Type="Int32" Nullable="false" />
+          <Property Name="ClassesId" Type="Int32" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BeneficiaryType" Relationship="Self.FK_Beneficiary_BeneficiaryType1" FromRole="Beneficiary" ToRole="BeneficiaryType" />
+          <NavigationProperty Name="Certificate" Relationship="Self.FK_Beneficiary_Certificate" FromRole="Beneficiary" ToRole="Certificate" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK_Beneficiary_Classes" FromRole="Beneficiary" ToRole="Classes" />
+        </EntityType>
+        <EntityType Name="BeneficiaryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Beneficiary" Relationship="Self.FK_Beneficiary_BeneficiaryType1" FromRole="BeneficiaryType" ToRole="Beneficiary" />
+        </EntityType>
+        <EntityType Name="Certificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Descriprion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Beneficiary" Relationship="Self.FK_Beneficiary_Certificate" FromRole="Certificate" ToRole="Beneficiary" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="SchoolId" Type="Int32" Nullable="false" />
+          <Property Name="Character" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolShift" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Beneficiary" Relationship="Self.FK_Beneficiary_Classes" FromRole="Classes" ToRole="Beneficiary" />
+          <NavigationProperty Name="School" Relationship="Self.FK_Class_School" FromRole="Classes" ToRole="School" />
+          <NavigationProperty Name="CountStudents" Relationship="Self.FK_CountStudents_Classes" FromRole="Classes" ToRole="CountStudents" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Successful" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_LoginHistory_User" FromRole="LoginHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK_Class_School" FromRole="School" ToRole="Classes" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_School" FromRole="School" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="LoginHistory" Relationship="Self.FK_LoginHistory_User" FromRole="User" ToRole="LoginHistory" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="School" Relationship="Self.FK_User_School" FromRole="User" ToRole="School" />
+        </EntityType>
+        <EntityType Name="CountStudents">
+          <Key>
+            <PropertyRef Name="ClassId" />
+            <PropertyRef Name="ManyChildren" />
+            <PropertyRef Name="LowIncome" />
+            <PropertyRef Name="Invalid" />
+            <PropertyRef Name="Orphan" />
+            <PropertyRef Name="OVZ" />
+            <PropertyRef Name="InHomeOVZ" />
+            <PropertyRef Name="InHomeInvalid" />
+            <PropertyRef Name="InHomeNoStatus" />
+            <PropertyRef Name="InFeedingParents" />
+            <PropertyRef Name="NoType" />
+            <PropertyRef Name="AllStudents" />
+          </Key>
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="ManyChildren" Type="Int32" Nullable="false" />
+          <Property Name="LowIncome" Type="Int32" Nullable="false" />
+          <Property Name="Invalid" Type="Int32" Nullable="false" />
+          <Property Name="Orphan" Type="Int32" Nullable="false" />
+          <Property Name="OVZ" Type="Int32" Nullable="false" />
+          <Property Name="InHomeOVZ" Type="Int32" Nullable="false" />
+          <Property Name="InHomeInvalid" Type="Int32" Nullable="false" />
+          <Property Name="InHomeNoStatus" Type="Int32" Nullable="false" />
+          <Property Name="InFeedingParents" Type="Int32" Nullable="false" />
+          <Property Name="NoType" Type="Int32" Nullable="false" />
+          <Property Name="AllStudents" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK_CountStudents_Classes" FromRole="CountStudents" ToRole="Classes" />
+        </EntityType>
+        <Association Name="FK_Beneficiary_BeneficiaryType1">
+          <End Role="BeneficiaryType" Type="Self.BeneficiaryType" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeneficiaryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Certificate">
+          <End Role="Certificate" Type="Self.Certificate" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Certificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="CertificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beneficiary_Classes">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Beneficiary" Type="Self.Beneficiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beneficiary">
+              <PropertyRef Name="ClassesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_School">
+          <End Role="School" Type="Self.School" Multiplicity="1" />
+          <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CountStudents_Classes">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="CountStudents" Type="Self.CountStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CountStudents">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginHistory_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LoginHistory" Type="Self.LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_School">
+          <End Role="School" Type="Self.School" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EMDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" />
+          <EntitySet Name="BeneficiaryType" EntityType="Self.BeneficiaryType" />
+          <EntitySet Name="Certificate" EntityType="Self.Certificate" />
+          <EntitySet Name="Classes" EntityType="Self.Classes" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="School" EntityType="Self.School" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="CountStudents" EntityType="Self.CountStudents" />
+          <AssociationSet Name="FK_Beneficiary_BeneficiaryType1" Association="Self.FK_Beneficiary_BeneficiaryType1">
+            <End Role="BeneficiaryType" EntitySet="BeneficiaryType" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Certificate" Association="Self.FK_Beneficiary_Certificate">
+            <End Role="Certificate" EntitySet="Certificate" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beneficiary_Classes" Association="Self.FK_Beneficiary_Classes">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Beneficiary" EntitySet="Beneficiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_School" Association="Self.FK_Class_School">
+            <End Role="School" EntitySet="School" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CountStudents_Classes" Association="Self.FK_CountStudents_Classes">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="CountStudents" EntitySet="CountStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginHistory_User" Association="Self.FK_LoginHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoginHistory" EntitySet="LoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_School" Association="Self.FK_User_School">
+            <End Role="School" EntitySet="School" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EMDatabaseModelContainer" CdmEntityContainer="EMDatabaseEntities">
+          <EntitySetMapping Name="Beneficiary">
+            <EntityTypeMapping TypeName="EMDatabaseModel.Beneficiary">
+              <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CertificateId" ColumnName="CertificateId" />
+                <ScalarProperty Name="ClassesId" ColumnName="ClassesId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BeneficiaryType">
+            <EntityTypeMapping TypeName="EMDatabaseModel.BeneficiaryType">
+              <MappingFragment StoreEntitySet="BeneficiaryType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Certificate">
+            <EntityTypeMapping TypeName="EMDatabaseModel.Certificate">
+              <MappingFragment StoreEntitySet="Certificate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Descriprion" ColumnName="Descriprion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="EMDatabaseModel.Classes">
+              <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="Character" ColumnName="Character" />
+                <ScalarProperty Name="SchoolShift" ColumnName="SchoolShift" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginHistory">
+            <EntityTypeMapping TypeName="EMDatabaseModel.LoginHistory">
+              <MappingFragment StoreEntitySet="LoginHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Successful" ColumnName="Successful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="EMDatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="School">
+            <EntityTypeMapping TypeName="EMDatabaseModel.School">
+              <MappingFragment StoreEntitySet="School">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="EMDatabaseModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EMDatabaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="EMDatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountStudents">
+            <EntityTypeMapping TypeName="EMDatabaseModel.CountStudents">
+              <MappingFragment StoreEntitySet="CountStudents">
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="ManyChildren" ColumnName="ManyChildren" />
+                <ScalarProperty Name="LowIncome" ColumnName="LowIncome" />
+                <ScalarProperty Name="Invalid" ColumnName="Invalid" />
+                <ScalarProperty Name="Orphan" ColumnName="Orphan" />
+                <ScalarProperty Name="OVZ" ColumnName="OVZ" />
+                <ScalarProperty Name="InHomeOVZ" ColumnName="InHomeOVZ" />
+                <ScalarProperty Name="InHomeInvalid" ColumnName="InHomeInvalid" />
+                <ScalarProperty Name="InHomeNoStatus" ColumnName="InHomeNoStatus" />
+                <ScalarProperty Name="InFeedingParents" ColumnName="InFeedingParents" />
+                <ScalarProperty Name="NoType" ColumnName="NoType" />
+                <ScalarProperty Name="AllStudents" ColumnName="AllStudents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
